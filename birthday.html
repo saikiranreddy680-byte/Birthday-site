@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Wishes</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .wrapper {
+      position: relative;
+      padding: 60px 20px;
+      min-height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      z-index: 1;
+    }
+
+    .note-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 600px;
+      box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      z-index: 2;
+      text-align: center;
+    }
+
+    .note-box h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .note-box p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #fff;
+    }
+
+    #playButton {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(255,255,255,0.2);
+      border: 1px solid #fff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    /* Balloons */
+    .balloon {
+      width: 40px;
+      height: 60px;
+      background-color: red;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      position: absolute;
+      bottom: -100px;
+      animation: float 12s linear infinite;
+      z-index: 1;
+    }
+
+    .balloon::after {
+      content: '';
+      width: 2px;
+      height: 30px;
+      background: white;
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-130vh); opacity: 0; }
+    }
+
+    .balloon:nth-child(n)  { animation-delay: calc(var(--i) * 1s); left: calc(var(--i) * 10%); background: var(--color); }
+
+    /* Fireworks (Golden Crackers) */
+    .firework {
+      position: absolute;
+      top: 20%;
+      width: 8px;
+      height: 8px;
+      background: transparent;
+      box-shadow:
+        0 0 #ffd700,
+        10px 0 #ffd700,
+        -10px 0 #ffd700,
+        0 10px #ffd700,
+        0 -10px #ffd700,
+        7px 7px #ffd700,
+        -7px -7px #ffd700;
+      border-radius: 50%;
+      animation: explode 1.5s ease-out infinite;
+      z-index: 0;
+    }
+
+    .firework:nth-child(n) {
+      left: calc(var(--j) * 20%);
+      animation-delay: calc(var(--j) * 0.5s);
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0.5); opacity: 1; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(-45deg);
+      animation: floatHeart 8s linear infinite;
+      opacity: 0.7;
+      z-index: 1;
+    }
+
+    .heart::before, .heart::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 10px;
+      top: 0;
+    }
+
+    @keyframes floatHeart {
+      0%   { transform: translateY(0) scale(1) rotate(-45deg); opacity: 0.7; }
+      100% { transform: translateY(-120vh) scale(1.2) rotate(-45deg); opacity: 0; }
+    }
+
+    .heart:nth-child(n) {
+      left: calc(var(--k) * 10%);
+      animation-delay: calc(var(--k) * 1.5s);
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: var(--color);
+      top: -10px;
+      left: calc(var(--i) * 10%);
+      animation: confetti-fall 5s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    @keyframes confetti-fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(120vh) rotate(360deg); }
+    }
+
+    @media (max-width: 600px) {
+      .note-box {
+        padding: 20px;
+      }
+      .note-box h1 {
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Play Button -->
+  <button id="playButton">🔊 Play Music</button>
+
+  <!-- Audio -->
+  <audio id="bg-music" loop>
+    <source src="birthday-music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Balloons -->
+  <div class="balloon" style="--i:1; --color:#FF69B4;"></div>
+  <div class="balloon" style="--i:2; --color:#FFD700;"></div>
+  <div class="balloon" style="--i:3; --color:#00CED1;"></div>
+  <div class="balloon" style="--i:4; --color:#ADFF2F;"></div>
+  <div class="balloon" style="--i:5; --color:#FF6347;"></div>
+  <div class="balloon" style="--i:6; --color:#FF8C00;"></div>
+  <div class="balloon" style="--i:7; --color:#9370DB;"></div>
+  <div class="balloon" style="--i:8; --color:#00FF7F;"></div>
+
+  <!-- Fireworks -->
+  <div class="firework" style="--j:1;"></div>
+  <div class="firework" style="--j:2;"></div>
+  <div class="firework" style="--j:3;"></div>
+
+  <!-- Floating Hearts -->
+  <div class="heart" style="--k:1;"></div>
+  <div class="heart" style="--k:2;"></div>
+  <div class="heart" style="--k:3;"></div>
+  <div class="heart" style="--k:4;"></div>
+
+  <!-- Confetti -->
+  <div class="confetti" style="--i:1; --color:#FF69B4;"></div>
+  <div class="confetti" style="--i:2; --color:#FFD700;"></div>
+  <div class="confetti" style="--i:3; --color:#00CED1;"></div>
+  <div class="confetti" style="--i:4; --color:#ADFF2F;"></div>
+  <div class="confetti" style="--i:5; --color:#FF6347;"></div>
+  <div class="confetti" style="--i:6; --color:#FF8C00;"></div>
+  <div class="confetti" style="--i:7; --color:#9370DB;"></div>
+  <div class="confetti" style="--i:8; --color:#00FF7F;"></div>
+
+  <!-- Birthday Message -->
+  <div class="wrapper">
+    <div class="note-box">
+      <h1>🎉 Happy Birthday! 🎈</h1>
+      <p>
+        YOUR_NOTES_HERE <br><br>
+        Wishing you a day filled with laughter, joy, and beautiful memories. 
+        May this year bring new adventures, happiness, and everything your heart desires. 💖
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const music = document.getElementById('bg-music');
+    const playButton = document.getElementById('playButton');
+
+    playButton.addEventListener('click', () => {
+      music.volume = 1.0;
+      music.play().then(() => {
+        playButton.style.display = 'none';
+      }).catch(error => {
+        console.error("Music play failed:", error);
+        alert("Please click again to allow music playback.");
+      });
+    });
+  </script>
+
+</body>
+</html>
