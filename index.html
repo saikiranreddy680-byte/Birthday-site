@@ -39,6 +39,12 @@
       padding: 30px;
       overflow-y: auto;
       z-index: 10;
+
+      /* 10% blur effect */
+      background-color: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 10px;
     }
 
     h1 {
@@ -75,17 +81,9 @@
     }
 
     @keyframes float {
-      0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
     }
 
     /* Floating hearts */
@@ -119,17 +117,9 @@
     }
 
     @keyframes flyUp {
-      0% {
-        bottom: -20px;
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      100% {
-        bottom: 100vh;
-        opacity: 0;
-      }
+      0% { bottom: -20px; opacity: 0; }
+      10% { opacity: 1; }
+      100% { bottom: 100vh; opacity: 0; }
     }
 
     /* Confetti canvas */
@@ -150,7 +140,7 @@
   <canvas id="confetti-canvas"></canvas>
 
   <div class="content-container">
-    <h1>Happy Birthday, Bangaram! 🎂</h1>
+    <h1>Happy Birthday, Bangaram!</h1>
     <h2>441 Days and Counting.....💖</h2>
     <p>441 days mundu ippudu unna saikiran appudu ledu. Eppudu anni lopalo dachukoni ontariga unnavadu tarvta okaru 	vacharu..Chitti ani nen em adrustam cheskunanno telidu nen oka friend untey ila undali ani eppat nuncho anukuntunna alagey aa 	devudu kuda chaalu le ni kathalu ani cheppi ninnu na life lo pampinchadu emo, I am so happy and luck to have you in my life.      </p>
     <p>Iroju nuv puttinanduku nikey thanks...asal nuv nak enti ani alochisthey okkokati gurthucheskuntey... 
@@ -166,10 +156,7 @@
     <p>	nitho untey prath kshanam oka memory eh... manaki enni godavalu aina.. nen ninnu badhapettina.. nen ni meeda arichesina... 	ni meeda chiraku padina... ippat varaku natho unnanduku chaalaa chaalaa chaalaaaa thankyouu pottiluuuu....
 	Asal you are the best thing happened to me....</p>
     <h1>HAPPY BIRTHDAY BANGARAM.... SARANGHEA</h1>
-    <p>You mean the world to me. Never forget that!</p>
-    <p>Shine bright always!</p>
-    <p> And of course, eat lots of sweets </p>
-
+    <p>You mean the world to me. Never forget that! and Shine bright as always!</p>
   </div>
 
   <script>
