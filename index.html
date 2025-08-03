@@ -14,7 +14,43 @@
       background-color: #000;
       color: #fff;
       font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
+    }
+
+    .start-page, .main-content {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .start-page {
+      display: flex;
+      background-color: #000;
+    }
+
+    .start-page img {
+      max-width: 60%;
+      margin-bottom: 20px;
+    }
+
+    .start-page h1 {
+      font-size: 2.8rem;
+      color: #FFD700;
+      margin-bottom: 20px;
+    }
+
+    .start-btn {
+      background: #FFD700;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     .music-btn {
@@ -39,12 +75,7 @@
       padding: 30px;
       overflow-y: auto;
       z-index: 10;
-
-      /* 10% blur effect */
-      background-color: rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border-radius: 10px;
+      backdrop-filter: blur(10px);
     }
 
     h1 {
@@ -59,36 +90,26 @@
       line-height: 1.6;
     }
 
-    /* Balloons */
-    .balloon {
+    .balloon, .heart {
       position: absolute;
-      width: 40px;
-      height: 60px;
-      background: radial-gradient(circle at 30% 30%, #ff69b4, #ff1493);
-      border-radius: 50% 50% 50% 50%;
       animation: float 8s linear infinite;
     }
 
-    .balloon::after {
-      content: '';
-      position: absolute;
-      bottom: -15px;
-      left: 50%;
-      width: 2px;
-      height: 15px;
-      background: white;
-      transform: translateX(-50%);
-    }
-
     @keyframes float {
-      0% { transform: translateY(100vh); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
     }
 
-    /* Floating hearts */
     .heart {
-      position: absolute;
       width: 20px;
       height: 20px;
       background: red;
@@ -96,8 +117,7 @@
       animation: flyUp 6s linear infinite;
     }
 
-    .heart::before,
-    .heart::after {
+    .heart::before, .heart::after {
       content: "";
       position: absolute;
       width: 20px;
@@ -106,15 +126,8 @@
       border-radius: 50%;
     }
 
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: 10px;
-      top: 0;
-    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: 10px; top: 0; }
 
     @keyframes flyUp {
       0% { bottom: -20px; opacity: 0; }
@@ -122,7 +135,6 @@
       100% { bottom: 100vh; opacity: 0; }
     }
 
-    /* Confetti canvas */
     #confetti-canvas {
       position: fixed;
       top: 0;
@@ -133,14 +145,19 @@
   </style>
 </head>
 <body>
-
-  <audio id="birthdayMusic" src="birthday-music.mp3" loop></audio>
+  <audio id="birthdayMusic" src="birthday-music.mp3"></audio>
   <button class="music-btn" onclick="toggleMusic()">Play Music</button>
-
   <canvas id="confetti-canvas"></canvas>
 
-  <div class="content-container">
-   <h1>Happy Birthday, Bangaram!</h1>
+  <div class="start-page" id="startPage">
+    <img src="birthday-bg.png" alt="Happy Birthday Image">
+    <h1>Happy Birthday Chittiluuu.. </h1>
+    <button class="start-btn" onclick="startExperience()">Start Celebration</button>
+  </div>
+
+  <div class="main-content" id="mainContent">
+    <div class="content-container">
+      <h1>Happy Birthday, Bangaram!</h1>
     <h2>441 Days and Counting.....💖</h2>
     <p>441 days mundu ippudu unna saikiran appudu ledu. Eppudu anni lopalo dachukoni ontariga unnavadu tarvta okaru 	vacharu..Chitti ani nen em adrustam cheskunanno telidu nen oka friend untey ila undali ani eppat nuncho anukuntunna alagey aa 	devudu kuda chaalu le ni kathalu ani cheppi ninnu na life lo pampinchadu emo, I am so happy and luck to have you in my life.      </p>
     <p>Iroju nuv puttinanduku nikey thanks...Nuv nak entoo cheppali anteyy...<br>
@@ -158,22 +175,28 @@
 	Eppudaina badhalo untey leda low lo untey oka devatha la nannu uplift chesi dhairyam nii istav....<br>
 	Denikaina bayapadithey father la nen unna ani encourage chestav....<br>
 	Verey vaalatho ela behave cheyyalai ani cheppeytappudu oka sister la unnav....<br>
-	Nen chesey yeddava panulaki natho patu enjoyy chesthuu, edaina eppudaina emaina undani nen okadanini una ni life lo ani gurthuchesi oka bestt friend la unnav....<br>
+	Nen chesey yeddava panulaki natho patu enjoyy chesthuu, edaina eppudaina emaina undani nen okadanini una ni life lo ani 	gurthuchesi oka bestt friend la unnav....<br>
 	Nuv chesey cute ga alagadam lo oka chinna papa la unnav....<br>
 	what not ila annitlo nuv nak unnav ekkada chusinna em chesina nuvvey nak gurthostav...<br></p>
     <h2>YOU MAKES ME A COMPLETE SAIKIRAN!! </h2>
-    <p>nitho untey prath kshanam oka memory eh... manaki enni godavalu aina.. nen ninnu badhapettina.. nen ni meeda arichesina...ni meeda chiraku padina... ippat varaku natho unnanduku chaalaa chaalaa chaalaaaa thankyouu pottiluuuu....
+    <p>nitho untey prath kshanam oka memory eh... manaki enni godavalu aina.. nen ninnu badhapettina.. nen ni meeda arichesina... 	ni meeda chiraku padina... ippat varaku natho unnanduku chaalaa chaalaa chaalaaaa thankyouu pottiluuuu....
 	Asal you are the best thing happened to me....</p>
     <h1>HAPPY BIRTHDAY BANGARAM.... SARANGHEA</h1>
     <p>You mean the world to me. Never forget that! and Shine bright as always!</p>
+    </div>
   </div>
 
   <script>
-    // Music toggle
     function toggleMusic() {
       const music = document.getElementById('birthdayMusic');
       if (music.paused) music.play();
       else music.pause();
+    }
+
+    function startExperience() {
+      document.getElementById('startPage').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      toggleMusic();
     }
 
     // Balloons
@@ -182,6 +205,9 @@
       balloon.className = 'balloon';
       balloon.style.left = Math.random() * 100 + 'vw';
       balloon.style.animationDelay = (Math.random() * 5) + 's';
+      balloon.style.width = '40px';
+      balloon.style.height = '60px';
+      balloon.style.borderRadius = '50%';
       balloon.style.background = `radial-gradient(circle at 30% 30%, hsl(${Math.random() * 360}, 100%, 70%), hsl(${Math.random() * 360}, 100%, 50%))`;
       document.body.appendChild(balloon);
     }
@@ -247,4 +273,3 @@
   </script>
 </body>
 </html>
-
