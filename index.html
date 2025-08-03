@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Happy Birthday Sravani!</title>
   <style>
     * {
@@ -14,68 +14,55 @@
       background-color: #000;
       color: #fff;
       font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
     }
 
-    .start-page, .main-content {
-      display: none;
-      height: 100vh;
-      width: 100vw;
-      position: relative;
-      text-align: center;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    .start-page {
-      display: flex;
-      background-color: #000;
-    }
-
-    .start-page img {
-      max-width: 60%;
-      margin-bottom: 20px;
-    }
-
-    .start-page h1 {
-      font-size: 2.8rem;
-      color: #FFD700;
-      margin-bottom: 20px;
-    }
-
-    .start-btn {
-      background: #FFD700;
-      border: none;
-      padding: 12px 24px;
-      font-size: 1.2rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .music-btn {
+    #startPage {
       position: fixed;
-      top: 15px;
-      right: 15px;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #startPage img {
+      max-width: 300px;
+      margin-bottom: 20px;
+    }
+
+    #startPage h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    #startPage button {
       background: gold;
+      color: black;
+      padding: 12px 20px;
+      font-size: 1rem;
       border: none;
-      padding: 10px 15px;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
-      z-index: 999;
     }
 
     .content-container {
       position: absolute;
-      top: 60px;
+      top: 0;
       bottom: 0;
       left: 0;
       right: 0;
       padding: 30px;
       overflow-y: auto;
       z-index: 10;
-      backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
     }
 
     h1 {
@@ -90,26 +77,33 @@
       line-height: 1.6;
     }
 
-    .balloon, .heart {
+    .balloon {
       position: absolute;
+      width: 40px;
+      height: 60px;
+      border-radius: 50%;
       animation: float 8s linear infinite;
     }
 
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      width: 2px;
+      height: 15px;
+      background: white;
+      transform: translateX(-50%);
+    }
+
     @keyframes float {
-      0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
     }
 
     .heart {
+      position: absolute;
       width: 20px;
       height: 20px;
       background: red;
@@ -117,7 +111,8 @@
       animation: flyUp 6s linear infinite;
     }
 
-    .heart::before, .heart::after {
+    .heart::before,
+    .heart::after {
       content: "";
       position: absolute;
       width: 20px;
@@ -127,7 +122,7 @@
     }
 
     .heart::before { top: -10px; left: 0; }
-    .heart::after { left: 10px; top: 0; }
+    .heart::after { top: 0; left: 10px; }
 
     @keyframes flyUp {
       0% { bottom: -20px; opacity: 0; }
@@ -145,19 +140,23 @@
   </style>
 </head>
 <body>
-  <audio id="birthdayMusic" src="birthday-music.mp3"></audio>
-  <button class="music-btn" onclick="toggleMusic()">Play Music</button>
+
+  <!-- 🎵 Audio -->
+  <audio id="birthdayMusic" src="birthday-music.mp3" preload="auto"></audio>
+
+  <!-- 🎉 Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
 
-  <div class="start-page" id="startPage">
-    <img src="birthday-bg.png" alt="Happy Birthday Image">
-    <h1>Happy Birthday Chittiluuu.. </h1>
-    <button class="start-btn" onclick="startExperience()">Start Celebration</button>
+  <!-- 🎂 Start Page -->
+  <div id="startPage">
+    <img src="your-image.jpg" alt="Happy Birthday" />
+    <h1>Happy Birthday, Chittiluuu! </h1>
+    <button onclick="startCelebration()">Start Celebration</button>
   </div>
 
-  <div class="main-content" id="mainContent">
-    <div class="content-container">
-      <h1>Happy Birthday, Bangaram!</h1>
+  <!-- 🎈 Main Message -->
+  <div class="content-container" id="messageContent" style="display: none;">
+    <h1><b>Happy Birthday, Bangaram!</b></h1>
     <h2>441 Days and Counting.....💖</h2>
     <p>441 days mundu ippudu unna saikiran appudu ledu. Eppudu anni lopalo dachukoni ontariga unnavadu tarvta okaru 	vacharu..Chitti ani nen em adrustam cheskunanno telidu nen oka friend untey ila undali ani eppat nuncho anukuntunna alagey aa 	devudu kuda chaalu le ni kathalu ani cheppi ninnu na life lo pampinchadu emo, I am so happy and luck to have you in my life.      </p>
     <p>Iroju nuv puttinanduku nikey thanks...Nuv nak entoo cheppali anteyy...<br>
@@ -183,93 +182,86 @@
 	Asal you are the best thing happened to me....</p>
     <h1>HAPPY BIRTHDAY BANGARAM.... SARANGHEA</h1>
     <p>You mean the world to me. Never forget that! and Shine bright as always!</p>
-    </div>
   </div>
 
   <script>
-    function toggleMusic() {
-      const music = document.getElementById('birthdayMusic');
-      if (music.paused) music.play();
-      else music.pause();
-    }
+    function startCelebration() {
+      document.getElementById("startPage").style.display = "none";
+      document.getElementById("messageContent").style.display = "block";
 
-    function startExperience() {
-      document.getElementById('startPage').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      toggleMusic();
-    }
+      const music = document.getElementById("birthdayMusic");
+      music.loop = true;
+      music.play();
 
-    // Balloons
-    for (let i = 0; i < 10; i++) {
-      const balloon = document.createElement('div');
-      balloon.className = 'balloon';
-      balloon.style.left = Math.random() * 100 + 'vw';
-      balloon.style.animationDelay = (Math.random() * 5) + 's';
-      balloon.style.width = '40px';
-      balloon.style.height = '60px';
-      balloon.style.borderRadius = '50%';
-      balloon.style.background = `radial-gradient(circle at 30% 30%, hsl(${Math.random() * 360}, 100%, 70%), hsl(${Math.random() * 360}, 100%, 50%))`;
-      document.body.appendChild(balloon);
-    }
-
-    // Hearts
-    for (let i = 0; i < 20; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.bottom = '-30px';
-      heart.style.animationDelay = (Math.random() * 5) + 's';
-      document.body.appendChild(heart);
-    }
-
-    // Confetti
-    const canvas = document.getElementById("confetti-canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const confettiCount = 100;
-    const confetti = [];
-
-    for (let i = 0; i < confettiCount; i++) {
-      confetti.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height - canvas.height,
-        r: Math.random() * 4 + 2,
-        d: Math.random() * confettiCount,
-        color: "gold"
-      });
-    }
-
-    function drawConfetti() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < confettiCount; i++) {
-        const c = confetti[i];
-        ctx.beginPath();
-        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2, false);
-        ctx.fillStyle = c.color;
-        ctx.fill();
+      // 🎈 Balloons
+      for (let i = 0; i < 15; i++) {
+        const balloon = document.createElement('div');
+        balloon.className = 'balloon';
+        balloon.style.left = Math.random() * 100 + 'vw';
+        balloon.style.animationDelay = (Math.random() * 5) + 's';
+        balloon.style.background = `radial-gradient(circle at 30% 30%, hsl(${Math.random() * 360}, 100%, 70%), hsl(${Math.random() * 360}, 100%, 50%))`;
+        document.body.appendChild(balloon);
       }
-      update();
-    }
 
-    let angle = 0;
+      // 💖 Hearts
+      for (let i = 0; i < 25; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.bottom = '-30px';
+        heart.style.animationDelay = (Math.random() * 5) + 's';
+        document.body.appendChild(heart);
+      }
 
-    function update() {
-      angle += 0.01;
+      // 🎊 Confetti
+      const canvas = document.getElementById("confetti-canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const confettiCount = 100;
+      const confetti = [];
+
       for (let i = 0; i < confettiCount; i++) {
-        const c = confetti[i];
-        c.y += Math.cos(angle + c.d) + 1 + c.r / 2;
-        c.x += Math.sin(angle) * 2;
+        confetti.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 4 + 2,
+          d: Math.random() * confettiCount,
+          color: "gold"
+        });
+      }
 
-        if (c.y > canvas.height) {
-          c.y = 0;
-          c.x = Math.random() * canvas.width;
+      let angle = 0;
+
+      function drawConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < confettiCount; i++) {
+          const c = confetti[i];
+          ctx.beginPath();
+          ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2, false);
+          ctx.fillStyle = c.color;
+          ctx.fill();
+        }
+        update();
+      }
+
+      function update() {
+        angle += 0.01;
+        for (let i = 0; i < confettiCount; i++) {
+          const c = confetti[i];
+          c.y += Math.cos(angle + c.d) + 1 + c.r / 2;
+          c.x += Math.sin(angle) * 2;
+
+          if (c.y > canvas.height) {
+            c.y = 0;
+            c.x = Math.random() * canvas.width;
+          }
         }
       }
-    }
 
-    setInterval(drawConfetti, 20);
+      setInterval(drawConfetti, 20);
+    }
   </script>
 </body>
 </html>
